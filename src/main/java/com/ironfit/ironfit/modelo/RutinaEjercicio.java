@@ -23,4 +23,73 @@ public class RutinaEjercicio {
     private Short tiempoSeg;
     private Double pesoObjetivo;
     private Short descansoSeg;
+    
+    public RutinaEjercicio() {
+    }
+
+    public RutinaEjercicioId getId() {
+        return id;
+    }
+
+    public void setId(RutinaEjercicioId id) {
+        this.id = id;
+    }
+
+    public Rutina getRutina() {
+        return rutina;
+    }
+
+    public void setRutina(Rutina rutina) {
+        this.rutina = rutina;
+    }
+
+    public Ejercicio getEjercicio() {
+        return ejercicio;
+    }
+
+    public void setEjercicio(Ejercicio ejercicio) {
+        this.ejercicio = ejercicio;
+    }
+
+    public Short getSeries() {
+        return series;
+    }
+
+    public void setSeries(Short series) {
+        this.series = series;
+    }
+
+    public String getRepeticiones() {
+        return repeticiones;
+    }
+
+    public void setRepeticiones(String repeticiones) {
+        this.repeticiones = repeticiones;
+    }
+
+    public Short getTiempoSeg() {
+        return tiempoSeg;
+    }
+
+    public void setTiempoSeg(Short tiempoSeg) {
+        this.tiempoSeg = tiempoSeg;
+    }
+
+    public Double getPesoObjetivo() {
+        return pesoObjetivo;
+    }
+
+    public void setPesoObjetivo(Double pesoObjetivo) {
+        this.pesoObjetivo = pesoObjetivo;
+    }
+
+    public Short getDescansoSeg() {
+        return descansoSeg;
+    }
+
+    public void setDescansoSeg(Short descansoSeg) {
+        this.descansoSeg = descansoSeg;
+    }
+
+    
 }

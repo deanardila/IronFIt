@@ -38,4 +38,97 @@ public class PlanEntrenamiento {
 
     @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
     private PlanNutricion planNutricion;
+
+    public PlanEntrenamiento() {
+    }
+
+    public Long getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(Long idPlan) {
+        this.idPlan = idPlan;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(LocalDate fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public EstadoPlan getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPlan estado) {
+        this.estado = estado;
+    }
+
+    public List<Rutina> getRutinas() {
+        return rutinas;
+    }
+
+    public void setRutinas(List<Rutina> rutinas) {
+        this.rutinas = rutinas;
+    }
+
+    public PlanNutricion getPlanNutricion() {
+        return planNutricion;
+    }
+
+    public void setPlanNutricion(PlanNutricion planNutricion) {
+        this.planNutricion = planNutricion;
+    }
+
+    
 }

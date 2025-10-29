@@ -15,4 +15,57 @@ public class Ejercicio {
 
     @OneToMany(mappedBy = "ejercicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RutinaEjercicio> detalles;
+
+    public Ejercicio() {
+    }
+
+    public Long getIdEjercicio() {
+        return idEjercicio;
+    }
+
+    public void setIdEjercicio(Long idEjercicio) {
+        this.idEjercicio = idEjercicio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getGrupoMuscular() {
+        return grupoMuscular;
+    }
+
+    public void setGrupoMuscular(String grupoMuscular) {
+        this.grupoMuscular = grupoMuscular;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<RutinaEjercicio> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<RutinaEjercicio> detalles) {
+        this.detalles = detalles;
+    }
+
+    
 }
