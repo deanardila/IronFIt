@@ -29,10 +29,11 @@ public class Administrador {
         SUPERADMIN, ASISTENTE
     }
 
-    
+    //Constructor vacio
     public Administrador() {
     }
 
+    //Getter y setter 
     public Long getIdAdmin() {
         return idAdmin;
     }
