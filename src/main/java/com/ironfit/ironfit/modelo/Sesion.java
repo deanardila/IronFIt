@@ -12,16 +12,20 @@ public class Sesion {
     @JoinColumn(name = "id_rutina")
     private Rutina rutina;
 
-    @Column(name = "id_dia")
-    private Byte idDia;
+    @ManyToOne
+    @JoinColumn(name = "id_dia", nullable = false)
+    private DiaSemana diaSemana; 
 
     private LocalTime hora;
     
+    @Column(length = 200)
     private String notas;
     
+    // Constructor vacío
     public Sesion() {
     }
 
+    // Getters y Setters
     public Long getIdSesion() {
         return idSesion;
     }
@@ -38,12 +42,12 @@ public class Sesion {
         this.rutina = rutina;
     }
 
-    public Byte getIdDia() {
-        return idDia;
+    public DiaSemana getDiaSemana() {
+        return diaSemana;
     }
 
-    public void setIdDia(Byte idDia) {
-        this.idDia = idDia;
+    public void setDiaSemana(DiaSemana diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
     public LocalTime getHora() {
@@ -61,6 +65,9 @@ public class Sesion {
     public void setNotas(String notas) {
         this.notas = notas;
     }
+    
+    
+
 
     
 }

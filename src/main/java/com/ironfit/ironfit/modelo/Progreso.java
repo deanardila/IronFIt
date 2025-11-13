@@ -19,7 +19,6 @@ public class Progreso {
     private String titulo;
     @Lob
     private String detalle;
-    private String urlFoto;
 
     private Double pesoKg;
     private Double tallaM;
@@ -73,14 +72,6 @@ public class Progreso {
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
-    }
-
-    public String getUrlFoto() {
-        return urlFoto;
-    }
-
-    public void setUrlFoto(String urlFoto) {
-        this.urlFoto = urlFoto;
     }
 
     public Double getPesoKg() {
