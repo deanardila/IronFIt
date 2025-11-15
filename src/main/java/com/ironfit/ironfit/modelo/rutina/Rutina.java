@@ -1,4 +1,5 @@
 package com.ironfit.ironfit.modelo.rutina;
+
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -7,23 +8,30 @@ import com.ironfit.ironfit.modelo.plan.PlanEntrenamiento;
 @Entity
 @Table(name = "rutina")
 public class Rutina {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_rutina")
     private Long idRutina;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_plan")
-    private PlanEntrenamiento plan;
+    @ManyToOne
+    @JoinColumn(name = "id_plan", nullable = false)
+    private PlanEntrenamiento planEntrenamiento;
 
+    @Column(name = "nombre", length = 120, nullable = false)
     private String nombre;
+
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
+
+    @Column(name = "orden")
     private Short orden;
 
-    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Sesion> sesiones;
+    @OneToMany(mappedBy = "rutina")
+    private List<RutinaEjercicio> rutinaEjercicios;
 
-    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RutinaEjercicio> detalles;
+    @OneToMany(mappedBy = "rutina")
+    private List<Sesion> sesiones;
 
     public Rutina() {
     }
@@ -36,12 +44,12 @@ public class Rutina {
         this.idRutina = idRutina;
     }
 
-    public PlanEntrenamiento getPlan() {
-        return plan;
+    public PlanEntrenamiento getPlanEntrenamiento() {
+        return planEntrenamiento;
     }
 
-    public void setPlan(PlanEntrenamiento plan) {
-        this.plan = plan;
+    public void setPlanEntrenamiento(PlanEntrenamiento planEntrenamiento) {
+        this.planEntrenamiento = planEntrenamiento;
     }
 
     public String getNombre() {
@@ -68,6 +76,14 @@ public class Rutina {
         this.orden = orden;
     }
 
+    public List<RutinaEjercicio> getRutinaEjercicios() {
+        return rutinaEjercicios;
+    }
+
+    public void setRutinaEjercicios(List<RutinaEjercicio> rutinaEjercicios) {
+        this.rutinaEjercicios = rutinaEjercicios;
+    }
+
     public List<Sesion> getSesiones() {
         return sesiones;
     }
@@ -75,14 +91,4 @@ public class Rutina {
     public void setSesiones(List<Sesion> sesiones) {
         this.sesiones = sesiones;
     }
-
-    public List<RutinaEjercicio> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<RutinaEjercicio> detalles) {
-        this.detalles = detalles;
-    }
-
-    
 }

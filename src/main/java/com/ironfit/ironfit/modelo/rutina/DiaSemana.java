@@ -1,30 +1,34 @@
 package com.ironfit.ironfit.modelo.rutina;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "dia_semana")
 public class DiaSemana {
 
     @Id
-    private Byte id; // 1-7
+    @Column(name = "id_dia")
+    private Short idDia;   // 1-7
 
-    @Column(nullable = false, length = 15)
-    private String nombre;
+    @Column(name = "nombre", length = 15, nullable = false)
+    private String nombre; // Lunes, Martes...
 
-    @Column(nullable = false, length = 3)
-    private String abreviatura;
+    @Column(name = "abreviatura", length = 3, nullable = false)
+    private String abreviatura; // LUN, MAR, etc.
 
-    // Constructor vacío
-    public DiaSemana() {}
+    @OneToMany(mappedBy = "diaSemana")
+    private List<Sesion> sesiones;
 
-
-    public Byte getId() {
-        return id;
+    public DiaSemana() {
     }
 
-    public void setId(Byte id) {
-        this.id = id;
+    public Short getIdDia() {
+        return idDia;
+    }
+
+    public void setIdDia(Short idDia) {
+        this.idDia = idDia;
     }
 
     public String getNombre() {
@@ -43,5 +47,11 @@ public class DiaSemana {
         this.abreviatura = abreviatura;
     }
 
-    
+    public List<Sesion> getSesiones() {
+        return sesiones;
+    }
+
+    public void setSesiones(List<Sesion> sesiones) {
+        this.sesiones = sesiones;
+    }
 }

@@ -1,29 +1,40 @@
 package com.ironfit.ironfit.modelo.rutina;
+
 import jakarta.persistence.*;
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "rutina_ejercicio")
 public class RutinaEjercicio {
+
     @EmbeddedId
     private RutinaEjercicioId id;
 
-    /** Rutina asociada */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("idRutina")
     @JoinColumn(name = "id_rutina")
     private Rutina rutina;
 
-    /** Ejercicio asociado */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("idEjercicio")
     @JoinColumn(name = "id_ejercicio")
     private Ejercicio ejercicio;
 
+    @Column(name = "series")
     private Short series;
+
+    @Column(name = "repeticiones", length = 20)
     private String repeticiones;
+
+    @Column(name = "tiempo_seg")
     private Short tiempoSeg;
-    private Double pesoObjetivo;
+
+    @Column(name = "peso_objetivo", precision = 6, scale = 2)
+    private BigDecimal pesoObjetivo;
+
+    @Column(name = "descanso_seg")
     private Short descansoSeg;
-    
+
     public RutinaEjercicio() {
     }
 
@@ -75,11 +86,11 @@ public class RutinaEjercicio {
         this.tiempoSeg = tiempoSeg;
     }
 
-    public Double getPesoObjetivo() {
+    public BigDecimal getPesoObjetivo() {
         return pesoObjetivo;
     }
 
-    public void setPesoObjetivo(Double pesoObjetivo) {
+    public void setPesoObjetivo(BigDecimal pesoObjetivo) {
         this.pesoObjetivo = pesoObjetivo;
     }
 
@@ -90,6 +101,5 @@ public class RutinaEjercicio {
     public void setDescansoSeg(Short descansoSeg) {
         this.descansoSeg = descansoSeg;
     }
-
-    
 }
+

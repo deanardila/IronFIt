@@ -1,5 +1,9 @@
 package com.ironfit.ironfit.modelo.evaluacion;
+
+import com.ironfit.ironfit.modelo.seguridad.Usuario;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -8,34 +12,42 @@ import java.time.LocalDate;
 public class EvaluacionFisica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_eval")
     private Long idEval;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
+    // Cliente evaluado
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_cliente", nullable = false)
+    private Usuario usuarioCliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_admin")
-    private Administrador administrador;
+    // Quien realiza la evaluación (entrenador, admin, etc.)
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_evaluador", nullable = false)
+    private Usuario usuarioEvaluador;
 
+    @Column(name = "fecha")
     private LocalDate fecha;
-    private Double pesoKg;
-    private Double tallaM;
-    private Double grasaPct;
-    private Double cinturaCm;
-    private Double caderaCm;
-    private Double brazosCm;
-    private Double piernasCm;
 
-    @Lob
+    @Column(name = "peso_kg", precision = 4, scale = 2)
+    private BigDecimal pesoKg;
+
+    @Column(name = "talla_m", precision = 4, scale = 2)
+    private BigDecimal tallaM;
+
+    @Column(name = "imc", precision = 4, scale = 2)
+    private BigDecimal imc;
+
+    @Column(name = "grasa_pct", precision = 4, scale = 2)
+    private BigDecimal grasaPct;
+
+    @Column(name = "cintura_cm", precision = 5, scale = 1)
+    private BigDecimal cinturaCm;
+
+    @Column(name = "cadera_cm", precision = 5, scale = 1)
+    private BigDecimal caderaCm;
+
+    @Column(name = "notas", columnDefinition = "TEXT")
     private String notas;
-
-    @Transient
-    public Double getImc() {
-        if (tallaM != null && tallaM > 0 && pesoKg != null)
-            return pesoKg / (tallaM * tallaM);
-        return null;
-    }
 
     public EvaluacionFisica() {
     }
@@ -48,20 +60,20 @@ public class EvaluacionFisica {
         this.idEval = idEval;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuarioCliente() {
+        return usuarioCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuarioCliente(Usuario usuarioCliente) {
+        this.usuarioCliente = usuarioCliente;
     }
 
-    public Administrador getAdministrador() {
-        return administrador;
+    public Usuario getUsuarioEvaluador() {
+        return usuarioEvaluador;
     }
 
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
+    public void setUsuarioEvaluador(Usuario usuarioEvaluador) {
+        this.usuarioEvaluador = usuarioEvaluador;
     }
 
     public LocalDate getFecha() {
@@ -72,60 +84,52 @@ public class EvaluacionFisica {
         this.fecha = fecha;
     }
 
-    public Double getPesoKg() {
+    public BigDecimal getPesoKg() {
         return pesoKg;
     }
 
-    public void setPesoKg(Double pesoKg) {
+    public void setPesoKg(BigDecimal pesoKg) {
         this.pesoKg = pesoKg;
     }
 
-    public Double getTallaM() {
+    public BigDecimal getTallaM() {
         return tallaM;
     }
 
-    public void setTallaM(Double tallaM) {
+    public void setTallaM(BigDecimal tallaM) {
         this.tallaM = tallaM;
     }
 
-    public Double getGrasaPct() {
+    public BigDecimal getImc() {
+        return imc;
+    }
+
+    public void setImc(BigDecimal imc) {
+        this.imc = imc;
+    }
+
+    public BigDecimal getGrasaPct() {
         return grasaPct;
     }
 
-    public void setGrasaPct(Double grasaPct) {
+    public void setGrasaPct(BigDecimal grasaPct) {
         this.grasaPct = grasaPct;
     }
 
-    public Double getCinturaCm() {
+    public BigDecimal getCinturaCm() {
         return cinturaCm;
     }
 
-    public void setCinturaCm(Double cinturaCm) {
+    public void setCinturaCm(BigDecimal cinturaCm) {
         this.cinturaCm = cinturaCm;
     }
 
-    public Double getCaderaCm() {
+    public BigDecimal getCaderaCm() {
         return caderaCm;
     }
 
-    public void setCaderaCm(Double caderaCm) {
+    public void setCaderaCm(BigDecimal caderaCm) {
         this.caderaCm = caderaCm;
-    }
-
-    public Double getBrazosCm() {
-        return brazosCm;
-    }
-
-    public void setBrazosCm(Double brazosCm) {
-        this.brazosCm = brazosCm;
-    }
-
-    public Double getPiernasCm() {
-        return piernasCm;
-    }
-
-    public void setPiernasCm(Double piernasCm) {
-        this.piernasCm = piernasCm;
     }
 
     public String getNotas() {
@@ -135,6 +139,5 @@ public class EvaluacionFisica {
     public void setNotas(String notas) {
         this.notas = notas;
     }
-
-    
 }
+

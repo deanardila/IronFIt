@@ -1,6 +1,8 @@
 package com.ironfit.ironfit.modelo.evaluacion;
 
+import com.ironfit.ironfit.modelo.seguridad.Usuario;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -9,28 +11,22 @@ import java.time.LocalDate;
 public class Progreso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_progreso")
     private Long idProgreso;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;   // Cliente al que pertenece el registro
 
+    @Column(name = "fecha")
     private LocalDate fecha;
+
+    @Column(name = "titulo", length = 120, nullable = false)
     private String titulo;
-    @Lob
+
+    @Column(name = "detalle", columnDefinition = "TEXT")
     private String detalle;
 
-    private Double pesoKg;
-    private Double tallaM;
-    private Double imc;
-    private Double cinturaCm;
-    private Double caderaCm;
-    private Double brazosCm;
-    private Double piernasCm;
-
-    private String prEjercicio;
-    private String prValor;
-    
     public Progreso() {
     }
 
@@ -42,12 +38,12 @@ public class Progreso {
         this.idProgreso = idProgreso;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public LocalDate getFecha() {
@@ -73,78 +69,5 @@ public class Progreso {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-    public Double getPesoKg() {
-        return pesoKg;
-    }
-
-    public void setPesoKg(Double pesoKg) {
-        this.pesoKg = pesoKg;
-    }
-
-    public Double getTallaM() {
-        return tallaM;
-    }
-
-    public void setTallaM(Double tallaM) {
-        this.tallaM = tallaM;
-    }
-
-    public Double getImc() {
-        return imc;
-    }
-
-    public void setImc(Double imc) {
-        this.imc = imc;
-    }
-
-    public Double getCinturaCm() {
-        return cinturaCm;
-    }
-
-    public void setCinturaCm(Double cinturaCm) {
-        this.cinturaCm = cinturaCm;
-    }
-
-    public Double getCaderaCm() {
-        return caderaCm;
-    }
-
-    public void setCaderaCm(Double caderaCm) {
-        this.caderaCm = caderaCm;
-    }
-
-    public Double getBrazosCm() {
-        return brazosCm;
-    }
-
-    public void setBrazosCm(Double brazosCm) {
-        this.brazosCm = brazosCm;
-    }
-
-    public Double getPiernasCm() {
-        return piernasCm;
-    }
-
-    public void setPiernasCm(Double piernasCm) {
-        this.piernasCm = piernasCm;
-    }
-
-    public String getPrEjercicio() {
-        return prEjercicio;
-    }
-
-    public void setPrEjercicio(String prEjercicio) {
-        this.prEjercicio = prEjercicio;
-    }
-
-    public String getPrValor() {
-        return prValor;
-    }
-
-    public void setPrValor(String prValor) {
-        this.prValor = prValor;
-    }
-
-    
 }
+

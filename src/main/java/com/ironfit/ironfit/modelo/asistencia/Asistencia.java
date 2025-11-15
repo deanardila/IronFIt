@@ -1,28 +1,41 @@
 package com.ironfit.ironfit.modelo.asistencia;
+
+import com.ironfit.ironfit.modelo.rutina.Sesion;
+import com.ironfit.ironfit.modelo.seguridad.Usuario;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.ironfit.ironfit.modelo.rutina.Rutina;
 @Entity
 @Table(name = "asistencia")
+
 public class Asistencia {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_asistencia")
     private Long idAsistencia;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    // Cliente que asistió
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rutina")
-    private Rutina rutina;
+    // Sesión programada a la que corresponde la asistencia
+    @ManyToOne
+    @JoinColumn(name = "id_sesion", nullable = false)
+    private Sesion sesion;
 
-    private LocalDate fecha;
-    private LocalTime hora;
-    private String observacion;
-    
+    @Column(name = "fecha")
+    private LocalDate fecha;   // día específico en que vino
+
+    @Column(name = "hora")
+    private LocalTime hora;    // hora a la que llegó / se registró
+
+    @Column(name = "observacion", length = 200)
+    private String observacion; // si cumplió la rutina, si llegó tarde, etc.
+
     public Asistencia() {
     }
 
@@ -34,20 +47,20 @@ public class Asistencia {
         this.idAsistencia = idAsistencia;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Rutina getRutina() {
-        return rutina;
+    public Sesion getSesion() {
+        return sesion;
     }
 
-    public void setRutina(Rutina rutina) {
-        this.rutina = rutina;
+    public void setSesion(Sesion sesion) {
+        this.sesion = sesion;
     }
 
     public LocalDate getFecha() {
@@ -74,5 +87,4 @@ public class Asistencia {
         this.observacion = observacion;
     }
 
-    
 }

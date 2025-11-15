@@ -1,43 +1,53 @@
 package com.ironfit.ironfit.modelo.plan;
+
+import com.ironfit.ironfit.modelo.seguridad.Usuario;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
+
 @Entity
 @Table(name = "plan_entrenamiento")
 public class PlanEntrenamiento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_plan")
     private Long idPlan;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    // Usuario con rol CLIENTE
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_cliente", nullable = false)
+    private Usuario usuarioCliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_entrenador")
-    private Entrenador entrenador;
+    // Usuario con rol ENTRENADOR
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_entrenador", nullable = false)
+    private Usuario usuarioEntrenador;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_admin")
-    private Administrador administrador;
+    @ManyToOne
+    @JoinColumn(name = "id_objetivo", nullable = false)
+    private ObjetivoPlan objetivo;
 
-    private String nombre;
-    private String objetivo;
+    @ManyToOne
+    @JoinColumn(name = "id_estado_plan", nullable = false)
+    private EstadoPlan estadoPlan;
+
+    @Column(name = "fecha_inicio")
     private LocalDate fechaInicio;
+
+    @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    @Enumerated(EnumType.STRING)
-    private EstadoPlan estado = EstadoPlan.ACTIVO;
+    @Column(name = "nombre", length = 120, nullable = false)
+    private String nombre;
 
-    public enum EstadoPlan {
-        ACTIVO, PAUSADO, FINALIZADO
-    }
+    @Column(name = "descripcion", length = 255)
+    private String descripcion;
 
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rutina> rutinas;
-
-    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
-    private PlanNutricion planNutricion;
+    // Relación con PlanNutricion (un plan puede tener 1 a n registros de nutrición)
+    @OneToMany(mappedBy = "planEntrenamiento")
+    private List<PlanNutricion> planesNutricion;
 
     public PlanEntrenamiento() {
     }
@@ -50,44 +60,36 @@ public class PlanEntrenamiento {
         this.idPlan = idPlan;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuarioCliente() {
+        return usuarioCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuarioCliente(Usuario usuarioCliente) {
+        this.usuarioCliente = usuarioCliente;
     }
 
-    public Entrenador getEntrenador() {
-        return entrenador;
+    public Usuario getUsuarioEntrenador() {
+        return usuarioEntrenador;
     }
 
-    public void setEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
+    public void setUsuarioEntrenador(Usuario usuarioEntrenador) {
+        this.usuarioEntrenador = usuarioEntrenador;
     }
 
-    public Administrador getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getObjetivo() {
+    public ObjetivoPlan getObjetivo() {
         return objetivo;
     }
 
-    public void setObjetivo(String objetivo) {
+    public void setObjetivo(ObjetivoPlan objetivo) {
         this.objetivo = objetivo;
+    }
+
+    public EstadoPlan getEstadoPlan() {
+        return estadoPlan;
+    }
+
+    public void setEstadoPlan(EstadoPlan estadoPlan) {
+        this.estadoPlan = estadoPlan;
     }
 
     public LocalDate getFechaInicio() {
@@ -106,29 +108,27 @@ public class PlanEntrenamiento {
         this.fechaFin = fechaFin;
     }
 
-    public EstadoPlan getEstado() {
-        return estado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEstado(EstadoPlan estado) {
-        this.estado = estado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public List<Rutina> getRutinas() {
-        return rutinas;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setRutinas(List<Rutina> rutinas) {
-        this.rutinas = rutinas;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public PlanNutricion getPlanNutricion() {
-        return planNutricion;
+    public List<PlanNutricion> getPlanesNutricion() {
+        return planesNutricion;
     }
 
-    public void setPlanNutricion(PlanNutricion planNutricion) {
-        this.planNutricion = planNutricion;
+    public void setPlanesNutricion(List<PlanNutricion> planesNutricion) {
+        this.planesNutricion = planesNutricion;
     }
-
-    
 }

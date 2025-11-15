@@ -1,22 +1,33 @@
 package com.ironfit.ironfit.modelo.plan;
+
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "plan_nutricion")
 public class PlanNutricion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_nutricion")
     private Long idNutricion;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_plan")
-    private PlanEntrenamiento plan;
+    @ManyToOne
+    @JoinColumn(name = "id_plan", nullable = false)
+    private PlanEntrenamiento planEntrenamiento;
 
+    @Column(name = "kcal_objetivo")
     private Short kcalObjetivo;
+
+    @Column(name = "proteina_g")
     private Short proteinaG;
+
+    @Column(name = "carbo_g")
     private Short carboG;
+
+    @Column(name = "grasa_g")
     private Short grasaG;
 
-    @Lob
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
     public PlanNutricion() {
@@ -30,12 +41,12 @@ public class PlanNutricion {
         this.idNutricion = idNutricion;
     }
 
-    public PlanEntrenamiento getPlan() {
-        return plan;
+    public PlanEntrenamiento getPlanEntrenamiento() {
+        return planEntrenamiento;
     }
 
-    public void setPlan(PlanEntrenamiento plan) {
-        this.plan = plan;
+    public void setPlanEntrenamiento(PlanEntrenamiento planEntrenamiento) {
+        this.planEntrenamiento = planEntrenamiento;
     }
 
     public Short getKcalObjetivo() {
@@ -77,6 +88,5 @@ public class PlanNutricion {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    
 }
+
